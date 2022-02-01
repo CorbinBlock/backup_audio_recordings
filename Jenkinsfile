@@ -2,7 +2,7 @@ pipeline {
     agent none
 stages {
         stage('backup_audio_recordings_lenovo') {
-            agent { 
+            agent {
                 label 'windows-03-lenovo'
             }
             steps {
@@ -20,9 +20,9 @@ stages {
                 aws s3 sync . s3://music-bucket-reaper
                 """
             }
-        }    
+        }
         stage('backup_audio_recordings_asus') {
-            agent { 
+            agent {
                 label 'windows-01-asus'
             }
             steps {
@@ -34,7 +34,7 @@ stages {
                 # For full replace, uncomment:
                 # bash -c "rm -rf ~/music/*"
                 bash -c "rsync --archive --progress * ~/music"
-                # bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
+                bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
                 # For full replace, uncomment:
                 # aws s3 rm s3://music-bucket-reaper --recursive
                 aws s3 sync . s3://music-bucket-reaper
@@ -42,8 +42,8 @@ stages {
             }
         }
         stage('backup_audio_recordings_fedora') {
-            agent { 
-                label 'windows-01-asus'
+            agent {
+                label 'windows-03-lenovo'
             }
             steps {
                 pwsh"""
@@ -52,14 +52,14 @@ stages {
                 Set-Location \$env:REAPER
                 # For full replace, uncomment:
                 # bash -c "ssh root@devenvrhel.ddns.net 'rm -rf /music/*'"
-                bash -c "rsync --archive --progress * root@devenvrhel.ddns.net:/music/"
+                bash -c "rsync --archive --progress --whole-file * root@devenvrhel.ddns.net:/music/"
                 bash -c "ssh root@devenvrhel.ddns.net 'df -h | head -n1 ; df -h | grep /dev/mapper/fedora_fedora-root'"
                 """
             }
         }
     stage('backup_audio_recordings_debian') {
-            agent { 
-                label 'windows-01-asus'
+            agent {
+                label 'windows-03-lenovo'
             }
             steps {
                 pwsh"""
