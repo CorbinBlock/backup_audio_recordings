@@ -21,26 +21,6 @@ stages {
                 """
             }
         }
-        stage('backup_audio_recordings_asus') {
-            agent {
-                label 'windows-01-asus'
-            }
-            steps {
-                pwsh"""
-                Get-PSDrive C
-                "{0:N2} GB" -f ((Get-ChildItem \$env:REAPER | Measure-Object Length -Sum).sum / 1Gb)
-                Set-Location \$env:REAPER
-                aws s3 sync s3://music-bucket-reaper .
-                # For full replace, uncomment:
-                # bash -c "rm -rf ~/music/*"
-                bash -c "rsync --archive --progress * ~/music"
-                bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
-                # For full replace, uncomment:
-                # aws s3 rm s3://music-bucket-reaper --recursive
-                aws s3 sync . s3://music-bucket-reaper
-                """
-            }
-        }
         stage('backup_audio_recordings_fedora') {
             agent {
                 label 'windows-03-lenovo'
@@ -70,6 +50,26 @@ stages {
                 # bash -c "ssh -p 2222 root@devenvrhel.ddns.net 'rm -rf /music/*'"
                 bash -c "rsync -avz -e 'ssh -p 2222' --archive --progress * root@devenvrhel.ddns.net:/music/"
                 bash -c "ssh -p 2222 root@devenvrhel.ddns.net 'df -h | head -n1 ; df -h | grep /dev/mmcblk1p2'"
+                """
+            }
+        }
+        stage('backup_audio_recordings_asus') {
+            agent {
+                label 'windows-01-asus'
+            }
+            steps {
+                pwsh"""
+                Get-PSDrive C
+                "{0:N2} GB" -f ((Get-ChildItem \$env:REAPER | Measure-Object Length -Sum).sum / 1Gb)
+                Set-Location \$env:REAPER
+                aws s3 sync s3://music-bucket-reaper .
+                # For full replace, uncomment:
+                # bash -c "rm -rf ~/music/*"
+                bash -c "rsync --archive --progress * ~/music"
+                bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
+                # For full replace, uncomment:
+                # aws s3 rm s3://music-bucket-reaper --recursive
+                aws s3 sync . s3://music-bucket-reaper
                 """
             }
         }
