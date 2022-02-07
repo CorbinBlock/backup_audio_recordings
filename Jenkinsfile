@@ -65,8 +65,8 @@ stages {
                 aws s3 sync s3://music-bucket-reaper .
                 # For full replace, uncomment:
                 # bash -c "rm -rf ~/music/*"
-                bash -c "rsync --archive --progress * ~/music"
-                bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
+                # bash -c "rsync --archive --progress * ~/music"
+                # bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
                 # For full replace, uncomment:
                 # aws s3 rm s3://music-bucket-reaper --recursive
                 aws s3 sync . s3://music-bucket-reaper
