@@ -3,7 +3,7 @@ pipeline {
 stages {
         stage('backup_audio_recordings_lenovo') {
             agent {
-                label 'WIN-LENOVO-01'
+                label 'WIN-01-LENOVO'
             }
             steps {
                 pwsh"""
@@ -23,7 +23,7 @@ stages {
         }
         stage('backup_audio_recordings_fedora') {
             agent {
-                label 'WIN-LENOVO-01'
+                label 'WIN-01-LENOVO'
             }
             steps {
                 pwsh"""
@@ -39,7 +39,7 @@ stages {
         }
     stage('backup_audio_recordings_debian') {
             agent {
-                label 'WIN-LENOVO-01'
+                label 'WIN-01-LENOVO'
             }
             steps {
                 pwsh"""
@@ -55,7 +55,7 @@ stages {
         }
         stage('backup_audio_recordings_asus') {
             agent {
-                label 'WIN-LENOVO-01'
+                label 'WIN-01-LENOVO'
             }
             steps {
                 pwsh"""
