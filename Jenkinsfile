@@ -55,7 +55,7 @@ stages {
         }
         stage('backup_audio_recordings_asus') {
             agent {
-                label 'WIN-01-LENOVO'
+                label 'WIN-02-ASUS'
             }
             steps {
                 pwsh"""
