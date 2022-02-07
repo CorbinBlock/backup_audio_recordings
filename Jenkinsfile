@@ -48,8 +48,8 @@ stages {
                 Set-Location \$env:REAPER
                 # For full replace, uncomment:
                 # bash -c "ssh -p 2222 root@devenvrhel.ddns.net 'rm -rf /music/*'"
-                bash -c "rsync -avz -e 'ssh -p 2222' --archive --progress * root@192.168.1.113:/music/"
-                bash -c "ssh -p 2222 root@192.168.1.113 'df -h | head -n1 ; df -h | grep /dev/mmcblk1p2'"
+                bash -c "rsync -avz -e 'ssh -p 22' --archive --progress * root@192.168.1.113:/music/"
+                bash -c "ssh root@192.168.1.113 'df -h | head -n1 ; df -h | grep /dev/mmcblk1p2'"
                 """
             }
         }
