@@ -16,8 +16,8 @@ stages {
                 # bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
                 # For full replace, uncomment:
                 # aws s3 rm s3://music-bucket-reaper --recursive
-                aws s3 sync s3://music-bucket-reaper .
                 aws s3 sync . s3://music-bucket-reaper
+                aws s3 sync s3://music-bucket-reaper .
                 """
             }
         }
@@ -62,14 +62,14 @@ stages {
                 Get-PSDrive C
                 "{0:N2} GB" -f ((Get-ChildItem \$env:REAPER | Measure-Object Length -Sum).sum / 1Gb)
                 Set-Location \$env:REAPER
-                aws s3 sync s3://music-bucket-reaper .
+                aws s3 sync . s3://music-bucket-reaper
                 # For full replace, uncomment:
                 # bash -c "rm -rf ~/music/*"
                 bash -c "rsync --archive --progress * ~/music"
                 bash -c "df -h | head -n1 ; df -h | grep /mnt/c"
                 # For full replace, uncomment:
                 # aws s3 rm s3://music-bucket-reaper --recursive
-                aws s3 sync . s3://music-bucket-reaper
+                aws s3 sync s3://music-bucket-reaper .
                 """
             }
         }
