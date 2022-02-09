@@ -31,9 +31,9 @@ stages {
                 "{0:N2} GB" -f ((Get-ChildItem \$env:REAPER | Measure-Object Length -Sum).sum / 1Gb)
                 Set-Location \$env:REAPER
                 # For full replace, uncomment:
-                # bash -c "ssh root@192.168.1.118 'rm -rf /music/*'"
-                bash -c "rsync --archive --progress --whole-file * root@192.168.1.118:/music/"
-                bash -c "ssh root@192.168.1.118 'df -h | head -n1 ; df -h | grep /dev/mapper/fedora_fedora-root'"
+                # bash -c "ssh root@UNIX-02-FEDORA 'rm -rf /music/*'"
+                bash -c "rsync --archive --progress --whole-file * root@UNIX-02-FEDORA:/music/"
+                bash -c "ssh root@UNIX-02-FEDORA 'df -h | head -n1 ; df -h | grep /dev/mapper/fedora_fedora-root'"
                 """
             }
         }
@@ -47,9 +47,9 @@ stages {
                 "{0:N2} GB" -f ((Get-ChildItem \$env:REAPER | Measure-Object Length -Sum).sum / 1Gb)
                 Set-Location \$env:REAPER
                 # For full replace, uncomment:
-                # bash -c "ssh root@192.168.1.113 'rm -rf /music/*'"
-                bash -c "rsync -avz -e 'ssh -p 22' --archive --progress * root@192.168.1.113:/music/"
-                bash -c "ssh root@192.168.1.113 'df -h | head -n1 ; df -h | grep /dev/mmcblk1p2'"
+                # bash -c "ssh root@UNIX-01-DEBIAN 'rm -rf /music/*'"
+                bash -c "rsync -avz -e 'ssh -p 22' --archive --progress * root@UNIX-01-DEBIAN:/music/"
+                bash -c "ssh root@UNIX-01-DEBIAN 'df -h | head -n1 ; df -h | grep /dev/mmcblk1p2'"
                 """
             }
         }
@@ -75,4 +75,3 @@ stages {
         }
     }
 }
-
